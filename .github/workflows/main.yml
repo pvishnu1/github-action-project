@@ -15,11 +15,9 @@ jobs:
 
     - name: Copy files to Windows server
       uses: appleboy/scp-action@v0.1.7
-      
       with:
         host: ${{ secrets.WINDOWS_HOST }}
         username: ${{ secrets.WINDOWS_USER }}
         password: ${{ secrets.WINDOWS_PASSWORD }}
         source: "/home/integra/build.txt"
-        target: "C:\Users\integra\Desktop\github-actions"
- 
+        target: "/C$/Users/integra/Desktop/github-actions"
