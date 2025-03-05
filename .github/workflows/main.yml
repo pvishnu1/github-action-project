@@ -28,3 +28,8 @@ jobs:
       - name: Run PowerShell Commands on Windows via SSH 
         run: |
           ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} 'powershell -Command "& {Start-Process -FilePath \"C:\Program Files\dotnet\dotnet.exe\" -ArgumentList \"C:\deploy\YourApp.dll\" -NoNewWindow -PassThru }"'
+
+      - name: Run PowerShell Commands on Windows via SSH to get the content of the files
+        run: |
+          ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} "powershell -Command \"Get-Content -Path 'C:\\Users\\integra\\Desktop\\github-actions\\build1.txt'\""		    
+     
