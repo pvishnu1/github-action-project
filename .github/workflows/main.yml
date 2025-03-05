@@ -20,6 +20,11 @@ jobs:
       - name: Verify Transfer
         run: |
           ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} "dir C:\\Users\\integra\\Desktop\\github-actions"
-      - name: Run PowerShell Commands on Windows via SSH
+          
+      - name: Run PowerShell Commands on Windows via SSH to list all the files
         run: |
           ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} 'powershell -Command "& {Get-ChildItem -Path \"C:\Users\integra\Desktop\github-actions\" }"'		    
+     
+      - name: Run PowerShell Commands on Windows via SSH 
+        run: |
+          ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} 'powershell -Command "& {Start-Process -FilePath \"C:\Program Files\dotnet\dotnet.exe\" -ArgumentList \"C:\deploy\YourApp.dll\" -NoNewWindow -PassThru }"'
