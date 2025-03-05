@@ -13,13 +13,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up SSH Key
-        run: |
-          #sudo mkdir -p ~/.ssh
-          #sudo echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          #sudo chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.WINDOWS_HOST }} >> ~/.ssh/known_hosts
-
       - name: Copy Files from Linux to Windows using SCP
         run: |
           scp -r /home/integra/build.txt ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }}:"C:/Users/integra/Desktop/github-actions/"
