@@ -1,23 +1,29 @@
-name: Copy Files
+name: Copy Files from Linux to Windows
 
 on:
   push:
     branches:
-      - main
+      - main  # Change to your target branch
 
 jobs:
-  copy-files:
-    runs-on: self-hosted
+  transfer:
+    runs-on: self-hosted  # This runs on your Linux server
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Copy files to Windows server
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.WINDOWS_HOST }}
-        username: ${{ secrets.WINDOWS_USER }}
-        password: ${{ secrets.WINDOWS_PASSWORD }}
-        source: "/home/integra/build.txt"
-        target: "/C$/Users/integra/Desktop/github-actions"
+      - name: Set up SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.WINDOWS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Copy Files from Linux to Windows using SCP
+        run: |
+          scp -r /home/integra/build.txt ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }}:"C:/Users/integra/Desktop/github-actions/"
+
+      - name: Verify Transfer
+        run: |
+          ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} "dir C:\\Users\\integra\\Desktop\\github-actions"
