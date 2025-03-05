@@ -20,3 +20,6 @@ jobs:
       - name: Verify Transfer
         run: |
           ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} "dir C:\\Users\\integra\\Desktop\\github-actions"
+      - name: Run PowerShell Commands on Windows via SSH
+        run: |
+          ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} "powershell -Command 'Start-Process -FilePath \"dotnet\" -ArgumentList \"C:\deploy\YourApp.dll\" -NoNewWindow -PassThru'"	    
