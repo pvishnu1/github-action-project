@@ -22,4 +22,4 @@ jobs:
           ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} "dir C:\\Users\\integra\\Desktop\\github-actions"
       - name: Run PowerShell Commands on Windows via SSH
         run: |
-          ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} "powershell -Command 'Start-Process -FilePath \"dotnet\" -ArgumentList \"C:\deploy\YourApp.dll\" -NoNewWindow -PassThru'"	    
+          ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} "powershell -Command 'New-Service -Name \"MyDotnetApp\" -BinaryPathName \"C:\Windows\System32\dotnet.exe C:\deploy\YourApp.dll\" -Description \"Runs my .NET Core application\" -StartupType Automatic Start-Service -Name \"MyDotnetApp\"'"	    
