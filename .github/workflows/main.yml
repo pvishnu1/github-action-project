@@ -15,11 +15,11 @@ jobs:
 
       - name: Copy Files from Linux to Windows using SCP
         run: |
-          scp -r /home/integra/build1.txt ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }}:"C:/Users/integra/Desktop/github-actions/"
+          scp -r /home/integra/build.txt ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }}:"C:/Users/integra/Desktop/github-actions/"
 
       - name: Verify Transfer
         run: |
           ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} "dir C:\\Users\\integra\\Desktop\\github-actions"
       - name: Run PowerShell Commands on Windows via SSH
         run: |
-          ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} "powershell -Command 'Start-Process -FilePath \"dotnet\" -ArgumentList \"C:\deploy\YourApp.dll\" -NoNewWindow -PassThru'"		    
+          ssh ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }} 'powershell -Command "& {Get-ChildItem -Path \"C:\Users\integra\Desktop\github-actions\" }"'		    
