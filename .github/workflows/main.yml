@@ -15,7 +15,7 @@ jobs:
 
       - name: Copy Files from Linux to Windows using SCP
         run: |
-          scp -r /home/integra/build.txt ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }}:"C:/Users/integra/Desktop/github-actions/"
+          scp -r /home/integra/build1.txt ${{ secrets.WINDOWS_USER }}@${{ secrets.WINDOWS_HOST }}:"C:/Users/integra/Desktop/github-actions/"
 
       - name: Verify Transfer
         run: |
